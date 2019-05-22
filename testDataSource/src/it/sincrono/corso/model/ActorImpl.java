@@ -11,15 +11,41 @@ public class ActorImpl implements AcctorUtility
 {
 	private Connection c=null;
 	private List<Actor> lista=new ArrayList();
+	int x=0;
 	@Override
 	public int insertActor(String n, String c) {
-		// TODO Auto-generated method stub
-		return 0;
+		this.c=Dao.getConnection();//richiamo il metodo getConnectio
+		try {
+			Statement s=this.c.createStatement();
+			x= s.executeUpdate("INSERT INTO `sakila`.`actor` (`first_name`, `last_name`) VALUES ('"+n+"', '"+c+"');");
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+		return x;
 	}
 
 	@Override
 	public List<Actor> readAll() {
-		// TODO Auto-generated method stub
+		c=Dao.getConnection();//richiamo il metodo getConnectio
+		try {
+			Statement s=c.createStatement();
+			ResultSet r=s.executeQuery("select * from actor;");
+			while(r.next())
+			{
+				Actor a= new Actor();
+				a.setFirst_name(r.getString("first_name"));
+				a.setLast_name(r.getString("last_name"));
+				lista.add(a);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return lista;
 	}
 
@@ -47,7 +73,22 @@ public class ActorImpl implements AcctorUtility
 
 	@Override
 	public List<Actor> findById(int id) {
-		// TODO Auto-generated method stub
+		c=Dao.getConnection();//richiamo il metodo getConnectio
+		try {
+			Statement s=c.createStatement();
+			ResultSet r=s.executeQuery("select * from actor where actor_id='"+id+"';");
+			while(r.next())
+			{
+				Actor a= new Actor();
+				a.setFirst_name(r.getString("first_name"));
+				a.setLast_name(r.getString("last_name"));
+				lista.add(a);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return lista;
 	}
 
@@ -60,7 +101,8 @@ public class ActorImpl implements AcctorUtility
 	@Override
 	public int deleteActorByID(int id) {
 		c=Dao.getConnection();//richiamo il metodo getConnectio
-		try {
+		try 
+		{
 			Statement s=c.createStatement();
 			ResultSet r=s.executeQuery("");
 			while(r.next())
@@ -70,7 +112,8 @@ public class ActorImpl implements AcctorUtility
 				a.setLast_name(r.getString("last_name"));
 				lista.add(a);
 			}
-		} catch (SQLException e) {
+		} catch (SQLException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
