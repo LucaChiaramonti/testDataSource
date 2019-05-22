@@ -42,7 +42,7 @@ public class Controller extends HttpServlet {
 			case "cercaPerId":		rd=request.getRequestDispatcher("/CercaPerId");break;
 			case "cercaPerNome":    rd=request.getRequestDispatcher("/Servlet");break; 
 			case "cercaTutti" : 	rd=request.getRequestDispatcher("/StampaTutti");break; 
-			case "aggiungiAttore":        rd=request.getRequestDispatcher("/AggiungiAttore");break;
+			case "aggiungiAttore":  rd=request.getRequestDispatcher("/AggiungiAttore");break;
 		}
 		
 		rd.forward(request, response);
